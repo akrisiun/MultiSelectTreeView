@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MultiSelect;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
@@ -278,7 +279,7 @@ namespace System.Windows.Automation.Peers
 
 		void ISelectionItemProvider.Select()
 		{
-			((MultiSelectTreeViewItem) Owner).ParentTreeView.Selection.SelectCore((MultiSelectTreeViewItem) Owner);
+			((MultiSelectTreeViewItem) Owner).ParentTreeView.Selection.SelectCore((MultiSelectTreeViewItem) Owner, true);
 		}
 
 		#endregion Explicit interface methods

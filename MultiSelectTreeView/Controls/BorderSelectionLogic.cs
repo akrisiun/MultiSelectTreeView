@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MultiSelect;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
@@ -82,6 +83,15 @@ namespace System.Windows.Controls
 
 		#region Methods
 
+        public bool IsActive { get { return border.Visibility == Visibility.Visible; } }
+
+        public void CancelRectangle()
+        { 
+            isFirstMove = true;
+            border.Visibility = Visibility.Collapsed;
+            Mouse.Capture(null);
+        }
+
 		private void OnMouseDown(object sender, MouseButtonEventArgs e)
 		{
 			mouseDown = true;
@@ -122,24 +132,28 @@ namespace System.Windows.Controls
 				double left = startPoint.X;
 				double top = startPoint.Y;
 
-				if (isFirstMove)
-				{
-					if (Math.Abs(width) <= SystemParameters.MinimumHorizontalDragDistance &&
-						Math.Abs(height) <= SystemParameters.MinimumVerticalDragDistance)
-					{
-						return;
-					}
+                if (isFirstMove)
+                {
+                    if (Math.Abs(width) <= SystemParameters.MinimumHorizontalDragDistance &&
+                        Math.Abs(height) <= SystemParameters.MinimumVerticalDragDistance)
+                    {
+                        return;
+                    }
 
-					isFirstMove = false;
-					if (!SelectionMultiple.IsControlKeyDown)
-					{
-						if (!treeView.ClearSelectionByRectangle())
-						{
-							EndAction();
-							return;
-						}
-					}
-				}
+                    isFirstMove = false;
+                    if (!SelectionMultiple.IsControlKeyDown)
+                    {
+                        if (!treeView.ClearSelectionByRectangle())
+                        {
+                            EndAction();
+                            return;
+                        }
+                    }
+                }
+                else
+                { 
+                    // good place for breakpoint    
+                }
 
 				// Debug.WriteLine(string.Format("Drawing: {0};{1};{2};{3}",startPoint.X,startPoint.Y,width,height));
 				if (width < 1)
@@ -267,6 +281,9 @@ namespace System.Windows.Controls
 			{
 				treeView.ClearSelection();
 			}
+
+            if (e.LeftButton == MouseButtonState.Released && IsActive)
+                CancelRectangle();
 		}
 
 		private void OnKeyDown(object sender, KeyEventArgs e)

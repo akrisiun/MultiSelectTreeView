@@ -1,4 +1,5 @@
-﻿using System.Windows.Automation.Provider;
+﻿using MultiSelect;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 
 namespace System.Windows.Automation.Peers

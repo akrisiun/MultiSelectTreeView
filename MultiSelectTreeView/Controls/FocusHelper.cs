@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using MultiSelect;
+using System.Threading;
 using System.Windows.Threading;
 
 namespace System.Windows.Controls

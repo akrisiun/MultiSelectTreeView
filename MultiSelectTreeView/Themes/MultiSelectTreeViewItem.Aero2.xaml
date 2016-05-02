@@ -1,14 +1,16 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:Controls="clr-namespace:System.Windows.Controls">
+	xmlns:Controls="clr-namespace:System.Windows.Controls"
+    xmlns:tree="clr-namespace:MultiSelect"
+    >
 
 	<Controls:ThicknessLeftConverter x:Key="ThicknessLeftConverter"/>
 	
-	<Style TargetType="{x:Type Controls:MultiSelectTreeViewItem}">
+	<Style TargetType="{x:Type tree:MultiSelectTreeViewItem}">
 		<Style.Triggers>
 			<DataTrigger
-				Binding="{Binding (VirtualizingStackPanel.IsVirtualizing), RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, FallbackValue=True}"
+				Binding="{Binding (VirtualizingStackPanel.IsVirtualizing), RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, FallbackValue=True}"
 				Value="True">
 				<Setter Property="ItemsControl.ItemsPanel">
 					<Setter.Value>
@@ -50,7 +52,7 @@
 
 		<Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
 		<Setter Property="VirtualizingStackPanel.VirtualizationMode"
-			Value="{Binding (VirtualizingStackPanel.VirtualizationMode), RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, FallbackValue=Standard}"/>
+			Value="{Binding (VirtualizingStackPanel.VirtualizationMode), RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, FallbackValue=Standard}"/>
 		<Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="False"/>
 		<Setter Property="Panel.Background" Value="#00FFFFFF"/>
 		<Setter Property="Control.HorizontalContentAlignment"
@@ -66,15 +68,15 @@
 
 		<!-- Pass on the MultiSelectTreeView' HoverHighlighting value to each item because we couldn't access it otherwise in the triggers -->
 		<Setter Property="HoverHighlighting"
-			Value="{Binding (Controls:MultiSelectTreeView.HoverHighlighting), RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, Mode=OneWay, FallbackValue=False}"/>
+			Value="{Binding (tree:MultiSelectTreeView.HoverHighlighting), RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, Mode=OneWay, FallbackValue=False}"/>
 		<Setter Property="ItemIndent"
-			Value="{Binding (Controls:MultiSelectTreeView.ItemIndent), RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, Mode=OneWay, FallbackValue=13}"/>
+			Value="{Binding (tree:MultiSelectTreeView.ItemIndent), RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, Mode=OneWay, FallbackValue=13}"/>
 		<Setter Property="IsKeyboardMode"
-			Value="{Binding (Controls:MultiSelectTreeView.IsKeyboardMode), RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, Mode=OneWay, FallbackValue=False}"/>
+			Value="{Binding (tree:MultiSelectTreeView.IsKeyboardMode), RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, Mode=OneWay, FallbackValue=False}"/>
 
 		<Setter Property="Control.Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Controls:MultiSelectTreeViewItem}">
+				<ControlTemplate TargetType="{x:Type tree:MultiSelectTreeViewItem}">
 					<!-- region ControlTemplate content -->
 					<StackPanel>
 						<Grid>
@@ -86,7 +88,7 @@
 
 							<!-- region Expander button -->
 							<ToggleButton
-								IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeViewItem}}, Path=IsExpanded, FallbackValue=False}"
+								IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeViewItem}}, Path=IsExpanded, FallbackValue=False}"
 								ClickMode="Press" Name="Expander">
 								<ToggleButton.Style>
 									<Style TargetType="{x:Type ToggleButton}">
@@ -226,22 +228,22 @@
 						<!-- Set the border and background when the control is active and the item is selected -->
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
-								<Condition Property="Controls:MultiSelectTreeViewItem.IsSelected" Value="True"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.IsSelected" Value="True"/>
 							</MultiTrigger.Conditions>
 							<Setter Property="Control.Background" Value="#cbe8f6"/>
 							<Setter Property="Border.BorderBrush" Value="#26a0da"/>
 						</MultiTrigger>
 
 						<!-- Show the border when the item is focused -->
-						<Trigger Property="Controls:MultiSelectTreeViewItem.IsFocused" Value="True">
+                        <Trigger Property="tree:MultiSelectTreeViewItem.IsFocused" Value="True">
 							<Setter Property="Border.BorderBrush" Value="#3399ff"/>
 						</Trigger>
 						
 						<!-- Slightly darker background when the item is selected and focused -->
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
-								<Condition Property="Controls:MultiSelectTreeViewItem.IsFocused" Value="True"/>
-								<Condition Property="Controls:MultiSelectTreeViewItem.IsSelected" Value="True"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.IsFocused" Value="True"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.IsSelected" Value="True"/>
 							</MultiTrigger.Conditions>
 							<Setter Property="Control.Background" Value="#d1e8ff"/>
 							<Setter Property="Border.BorderBrush" Value="#66a7e8"/>
@@ -265,10 +267,10 @@
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>
 								<Condition
-									Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, Path=IsKeyboardFocusWithin, FallbackValue=False}"
+									Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, Path=IsKeyboardFocusWithin, FallbackValue=False}"
 									Value="False"/>
 								<Condition
-									Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, Path=ContextMenu.IsOpen, FallbackValue=False}"
+									Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, Path=ContextMenu.IsOpen, FallbackValue=False}"
 									Value="False"/>
 								<Condition
 									Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsSelected}"
@@ -281,8 +283,8 @@
 						<!-- Set the border and background when the mouse is located over the item and HoverHighlighting is active -->
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
-								<Condition Property="Controls:MultiSelectTreeViewItem.HoverHighlighting" Value="True"/>
-								<Condition Property="Controls:MultiSelectTreeViewItem.IsMouseOver" Value="True" SourceName="ElementGrid"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.HoverHighlighting" Value="True"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.IsMouseOver" Value="True" SourceName="ElementGrid"/>
 							</MultiTrigger.Conditions>
 							<Setter Property="Control.Background" Value="#E5F3FB"/>
 							<Setter Property="Border.BorderBrush" Value="#70C0E7"/>
@@ -292,8 +294,8 @@
 							(after inactive grey to override it) -->
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
-								<Condition Property="Controls:MultiSelectTreeViewItem.HoverHighlighting" Value="True"/>
-								<Condition Property="Controls:MultiSelectTreeViewItem.IsMouseOver" Value="True" SourceName="ElementGrid"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.HoverHighlighting" Value="True"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.IsMouseOver" Value="True" SourceName="ElementGrid"/>
 								<Condition Property="IsSelected" Value="True"/>
 							</MultiTrigger.Conditions>
 							<Setter Property="Control.Background" Value="#d1e8ff"/>
@@ -301,7 +303,7 @@
 						</MultiTrigger>
 
 						<!-- Collapse the child items host if the node is not expanded -->
-						<Trigger Property="Controls:MultiSelectTreeViewItem.IsExpanded" Value="False">
+                        <Trigger Property="tree:MultiSelectTreeViewItem.IsExpanded" Value="False">
 							<Setter Property="UIElement.Visibility" TargetName="ItemsHostGrid" Value="Collapsed"/>
 						</Trigger>
 						
@@ -317,13 +319,13 @@
 						
 						<!-- Hide vertical rulers if disabled -->
 						<DataTrigger
-							Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, Path=VerticalRulers, FallbackValue=False}"
+							Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, Path=VerticalRulers, FallbackValue=False}"
 							Value="False">
 							<Setter TargetName="RulerPath" Property="Visibility" Value="Collapsed"/>
 						</DataTrigger>
 
 						<!-- Use a different template and colours in edit mode -->
-						<Trigger Property="Controls:MultiSelectTreeViewItem.IsEditing" Value="True">
+                        <Trigger Property="tree:MultiSelectTreeViewItem.IsEditing" Value="True">
 							<Setter Property="HeaderTemplate"
 								Value="{Binding ContentTemplateEdit, RelativeSource={RelativeSource Self}}"/>
 							<Setter Property="Control.Background" Value="#cbe8f6"/>
