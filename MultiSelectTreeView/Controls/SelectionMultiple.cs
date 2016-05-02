@@ -181,7 +181,10 @@ namespace MultiSelect
                     }
                 }
             }
-            else if (allowRemove) DeSelectCore(item);
+            else if (allowRemove)
+            {
+                DeSelectCore(item);
+            }
 
             FocusHelper.Focus(item, true);
             return true;
