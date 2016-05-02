@@ -1,5 +1,8 @@
 # MultiSelectTreeView
 
+Original source: Copyright (c) 2012-2016 Yves Goergen, Goroll  
+https://github.com/dg9ngf/MultiSelectTreeView.git
+
 A WPF TreeView control with support for multiple selection.
 
 See http://unclassified.software/source/multiselecttreeview for further information.
@@ -11,3 +14,11 @@ The code is based on the TreeViewEx project on CodePlex (http://treeviewex.codep
 The current development status is considered usable, there are no known major bugs or missing parts that need to be fixed. The included test cases are outdated and likely won't work anymore. To play with the control and its features, you can run the Demo application from the solution.
 
 You can also install this package from NuGet: https://www.nuget.org/packages/MultiSelectTreeView
+
+# PostBuild
+
+```
+del /s /f /q $(ProjectDir)\NuGet\lib
+xcopy /y $(TargetPath) $(ProjectDir)NuGet\lib\net40\
+$(ProjectDir)tools\NuGet.exe pack $(ProjectDir)NuGet\MultiSelectTreeView.nuspec -basepath $(ProjectDir)NuGet -outputdir $(TargetDir)
+```
