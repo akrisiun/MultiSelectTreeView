@@ -16,6 +16,7 @@ namespace MultiSelect
     public class SelectionMultiple : ISelectionStrategy
     {
         public event EventHandler<PreviewSelectionChangedEventArgs> PreviewSelectionChanged;
+        public event EventHandler<MouseButtonEventArgs> MouseButtonDown;
 
         private readonly MultiSelectTreeView treeView;
         private BorderSelectionLogic borderSelectionLogic;
@@ -29,6 +30,8 @@ namespace MultiSelect
         #region Properties
 
         public bool LastCancelAll { get; private set; }
+
+        public bool IsFirstMouseMove { get; set; }
 
         internal static bool IsControlKeyDown
         {
@@ -448,6 +451,12 @@ namespace MultiSelect
                 handler(this, e);
                 LastCancelAll = e.CancelAll;
             }
+        }
+
+        public void OnMouseButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (this.MouseButtonDown != null)
+                this.MouseButtonDown(sender, e);
         }
     }
 }

@@ -1,9 +1,14 @@
 ﻿using MultiSelect;
+using System.Windows.Input;
 namespace System.Windows.Controls
 {
     public interface ISelectionStrategy : IDisposable
     {
 		event EventHandler<PreviewSelectionChangedEventArgs> PreviewSelectionChanged;
+        event EventHandler<MouseButtonEventArgs> MouseButtonDown;
+        void OnMouseButtonDown(object sender, MouseButtonEventArgs e);
+
+        bool IsFirstMouseMove { get; set; }
 		
 		void ApplyTemplate();
         bool SelectCore(MultiSelectTreeViewItem owner, bool remove);

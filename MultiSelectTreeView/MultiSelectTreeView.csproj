@@ -66,9 +66,11 @@
     <Compile Include="Automation\Peers\MultiSelectTreeViewItemDataAutomationPeer.cs" />
     <Compile Include="Controls\BorderSelectionLogic.cs" />
     <Compile Include="Controls\EditTextBox.cs" />
+    <Compile Include="Controls\IGeneratorHost.cs" />
     <Compile Include="Controls\ISelectionStrategy.cs" />
     <Compile Include="Controls\ListExtensions.cs" />
     <Compile Include="Controls\FocusHelper.cs" />
+    <Compile Include="Controls\MultiSelectTreeViewItem-Mouse.cs" />
     <Compile Include="Controls\SelectionMultiple.cs" />
     <Compile Include="Controls\SelectionSingle.cs" />
     <Compile Include="Controls\MultiSelectTreeViewItem.cs" />
