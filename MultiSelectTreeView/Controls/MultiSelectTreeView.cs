@@ -262,6 +262,8 @@ namespace MultiSelect
 
         public ISelectionStrategy Selection { get; protected set; }
 
+        public bool AllowDragDropState {  get { return Selection.IsFirstMouseMove; } }
+
         #endregion
 
         #region Public Methods and Operators

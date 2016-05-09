@@ -84,12 +84,13 @@ namespace System.Windows.Controls
 
         #region Methods
 
-        public bool IsFirstMouseMove { 
+        bool IsFirstMouseMove { 
             get { return isFirstMove; }
             set
             {
                 isFirstMove = value;
-                treeView.Selection.IsFirstMouseMove = isFirstMove;
+                if (treeView.Selection != null)
+                    treeView.Selection.IsFirstMouseMove = isFirstMove;
             }
         }
 
@@ -104,8 +105,22 @@ namespace System.Windows.Controls
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (IsActive || e.LeftButton == MouseButtonState.Released)
+                // || e.LeftButton == MouseButtonState.Released)
+            {
+                // breakpoint
+                IsFirstMouseMove = true;
+                mouseDown = false;
+                return;
+            }
+
             mouseDown = true;
             startPoint = Mouse.GetPosition(content);
+
+            if (IsActive)
+            {
+                return;
+            }
 
             // Debug.WriteLine("Initialize drwawing");
             IsFirstMouseMove = true;
@@ -149,7 +164,15 @@ namespace System.Windows.Controls
                     return;
                 }
 
-                IsFirstMouseMove = false;
+                if (!IsActive)
+                {
+                    IsFirstMouseMove = false;
+                }
+                else
+                {
+                    // breakpoint?
+                }
+
                 if (!SelectionMultiple.IsControlKeyDown)
                 {
                     if (!treeView.ClearSelectionByRectangle())
@@ -288,6 +311,7 @@ namespace System.Windows.Controls
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             EndAction();
+            IsFirstMouseMove = true;
 
             // Clear selection if this was a non-ctrl click outside of any item (i.e. in the background)
             Point currentPoint = e.GetPosition(content);
@@ -297,6 +321,11 @@ namespace System.Windows.Controls
                 Math.Abs(height) <= SystemParameters.MinimumVerticalDragDistance &&
                 !SelectionMultiple.IsControlKeyDown)
             {
+                if (e.LeftButton == MouseButtonState.Released && IsActive)
+                {
+                    return;   // leave selection
+                }
+
                 treeView.ClearSelection();
             }
 

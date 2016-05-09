@@ -31,7 +31,7 @@ namespace MultiSelect
 
         public bool LastCancelAll { get; private set; }
 
-        public bool IsFirstMouseMove { get; set; }
+        bool ISelectionStrategy.IsFirstMouseMove { get; set; }
 
         internal static bool IsControlKeyDown
         {
