@@ -5,7 +5,7 @@
     xmlns:tree="clr-namespace:MultiSelect"
     >
 
-	<Controls:ThicknessLeftConverter x:Key="ThicknessLeftConverter"/>
+    <Controls:ThicknessLeftConverter x:Key="ThicknessLeftConverter"/>
 	
 	<Style TargetType="{x:Type tree:MultiSelectTreeViewItem}">
 		<Style.Triggers>
@@ -266,21 +266,21 @@
 						</MultiTrigger>
 						
 						<!-- Set the border and background when the item is selected -->
-						<Trigger Property="Controls:MultiSelectTreeViewItem.IsSelected" Value="True">
+                        <Trigger Property="tree:MultiSelectTreeViewItem.IsSelected" Value="True">
 							<Setter Property="Control.Background" Value="{StaticResource SelectedBackgroundBrush}"/>
 							<Setter Property="Border.BorderBrush" Value="{StaticResource SelectedBorderBrush}"/>
 						</Trigger>
 						
 						<!-- Show the border when the item is focused -->
-						<Trigger Property="Controls:MultiSelectTreeViewItem.IsFocused" Value="True">
+                        <Trigger Property="tree:MultiSelectTreeViewItem.IsFocused" Value="True">
 							<Setter Property="Border.BorderBrush" Value="{StaticResource FocusedBorderBrush}"/>
 						</Trigger>
 						
 						<!-- Slightly darker background when the item is selected and focused -->
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
-								<Condition Property="Controls:MultiSelectTreeViewItem.IsFocused" Value="True"/>
-								<Condition Property="Controls:MultiSelectTreeViewItem.IsSelected" Value="True"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.IsFocused" Value="True"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.IsSelected" Value="True"/>
 							</MultiTrigger.Conditions>
 							<Setter Property="Control.Background" Value="{StaticResource SelectedHoveredBackgroundBrush}"/>
 						</MultiTrigger>
@@ -303,10 +303,10 @@
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>
 								<Condition
-									Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, Path=IsKeyboardFocusWithin, FallbackValue=False}"
+									Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, Path=IsKeyboardFocusWithin, FallbackValue=False}"
 									Value="False"/>
 								<Condition
-									Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, Path=ContextMenu.IsOpen, FallbackValue=False}"
+									Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, Path=ContextMenu.IsOpen, FallbackValue=False}"
 									Value="False"/>
 								<Condition
 									Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsSelected}"
@@ -320,8 +320,8 @@
 							(after inactive grey to override it) -->
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
-								<Condition Property="Controls:MultiSelectTreeViewItem.HoverHighlighting" Value="True"/>
-								<Condition Property="Controls:MultiSelectTreeViewItem.IsMouseOver" Value="True" SourceName="ElementGrid"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.HoverHighlighting" Value="True"/>
+                                <Condition Property="tree:MultiSelectTreeViewItem.IsMouseOver" Value="True" SourceName="ElementGrid"/>
 								<Condition Property="IsSelected" Value="True"/>
 							</MultiTrigger.Conditions>
 							<Setter Property="Control.Background" Value="{StaticResource SelectedHoveredBackgroundBrush}"/>
@@ -329,7 +329,7 @@
 						</MultiTrigger>
 						
 						<!-- Collapse the child items host if the node is not expanded -->
-						<Trigger Property="Controls:MultiSelectTreeViewItem.IsExpanded" Value="False">
+                        <Trigger Property="tree:MultiSelectTreeViewItem.IsExpanded" Value="False">
 							<Setter Property="UIElement.Visibility" TargetName="ItemsHostGrid" Value="Collapsed"/>
 						</Trigger>
 						
@@ -345,13 +345,13 @@
 						
 						<!-- Hide vertical rulers if disabled -->
 						<DataTrigger
-							Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Controls:MultiSelectTreeView}}, Path=VerticalRulers, FallbackValue=False}"
+							Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type tree:MultiSelectTreeView}}, Path=VerticalRulers, FallbackValue=False}"
 							Value="False">
 							<Setter TargetName="RulerPath" Property="Visibility" Value="Collapsed"/>
 						</DataTrigger>
 
 						<!-- Use a different template and colours in edit mode -->
-						<Trigger Property="Controls:MultiSelectTreeViewItem.IsEditing" Value="True">
+                        <Trigger Property="tree:MultiSelectTreeViewItem.IsEditing" Value="True">
 							<Setter Property="HeaderTemplate"
 								Value="{Binding ContentTemplateEdit, RelativeSource={RelativeSource Self}}"/>
 							<Setter Property="Control.Background" Value="{StaticResource SelectedBackgroundBrush}"/>
